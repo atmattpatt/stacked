@@ -64,37 +64,67 @@ class Trace {
 		switch($name) {
 			case 'notClass':
 				$desiredResult = false;
+				// No break
 			case 'class':
-				return ($this->test('class', $expected) == $desiredResult) ? $this : $this->__get('previous')->$name($expected);
+				if ($this->test('class', $expected) == $desiredResult) {
+					return $this;
+				} elseif ($this->previous instanceof self) {
+					return $this->previous->{$name}($expected);
+				} else {
+					return new self(array(), $this);
+				}
 				break;
 
 			case 'notFile':
 				$desiredResult = false;
+				// No break
 			case 'file':
-				return ($this->test('file', $expected) == $desiredResult) ? $this : $this->__get('previous')->$name($expected);
+				if ($this->test('file', $expected) == $desiredResult) {
+					return $this;
+				} elseif ($this->previous instanceof self) {
+					return $this->previous->{$name}($expected);
+				} else {
+					return new self(array(), $this);
+				}
 				break;
 
 			case 'notFunction':
 			case 'notMethod':
 				$desiredResult = false;
+				// No break
 			case 'function':
 			case 'method':
-				return ($this->test('function', $expected) == $desiredResult) ? $this : $this->__get('previous')->$name($expected);
+				if ($this->test('function', $expected) == $desiredResult) {
+					return $this;
+				} elseif ($this->previous instanceof self) {
+					return $this->previous->{$name}($expected);
+				} else {
+					return new self(array(), $this);
+				}
 				break;
 
 			case 'notLine':
 				$desiredResult = false;
+				// No break
 			case 'line':
-				return ($this->test('line', $expected) == $desiredResult) ? $this : $this->__get('previous')->$name($expected);
+				if ($this->test('line', $expected) == $desiredResult) {
+					return $this;
+				} elseif ($this->previous instanceof self) {
+					return $this->previous->{$name}($expected);
+				} else {
+					return new self(array(), $this);
+				}
 				break;
 
 			case 'notInstanceOf':
 				$desiredResult = false;
+				// No break
 			case 'instanceOf':
 				break;
 
 			case 'nonStatic':
 				$desiredResult = false;
+				// No break
 			case 'static':
 				break;
 		}
@@ -139,7 +169,12 @@ class Trace {
 	}
 
 	public static function start($limit = 0) {
-		$options = DEBUG_BACKTRACE_PROVIDE_OBJECT;
+		$options = DEBUG_BACKTRACE_IGNORE_ARGS;
+		if ($limit > 0) {
+			// Add 1 to the limit, since we shift off the first call
+			$limit += 1;
+		}
+
 		if (PHP_MAJOR_VERSION > 5 || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION >= 4)) {
 			$trace = debug_backtrace($options, $limit);
 		} else {
