@@ -1,0 +1,19 @@
+{
+	"name": "matthewpatterson/stacked",
+	"description": "A fluent way to navigate through the function call stack",
+	"homepage": "http://github.com/matthewpatterson/stacked",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Matthew Patterson",
+			"email": "matthew.s.patterson@gmail.com"
+		}
+	],
+	"require": {
+		"php": ">=5.3"
+	},
+	"version": "0.1",
+	"autoload": {
+		"psr-0": {"Stacked": "src/"}
+	}
+}
