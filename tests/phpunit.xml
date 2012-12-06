@@ -1,0 +1,8 @@
+<phpunit colors="false">
+    <testsuite name="Stacked">
+        <directory>.</directory>
+    </testsuite>
+    <logging>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
+    </logging>
+</phpunit>
