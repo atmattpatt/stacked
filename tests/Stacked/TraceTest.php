@@ -94,9 +94,9 @@ class TraceTest extends PHPUnit_Framework_TestCase {
 		$this->createObject();
 
 		// Test line known to exist
-		$actual = $this->object->line(22)->notLine(22); // Where $c() is declared
+		$actual = $this->object->line(19)->notLine(19); // Where $c() is declared
 		$this->assertInstanceOf('\\Stacked\\Trace', $actual);
-		$this->assertEquals(23, $actual->line);
+		$this->assertEquals(20, $actual->line);
 
 		// Test line not found in our trace
 		$actual = $this->object->line(999999);
